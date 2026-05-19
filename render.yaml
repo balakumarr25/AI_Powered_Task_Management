@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: taskportal-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: postgres
+      - key: JDBC_DATABASE_URL
+        sync: false   # format: jdbc:postgresql://host/dbname?sslmode=require
+      - key: DATABASE_USERNAME
+        sync: false   # your Neon username
+      - key: DATABASE_PASSWORD
+        sync: false   # your Neon password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false   # your Vercel frontend URL e.g. https://your-app.vercel.app
+      - key: OPENAI_API_KEY
+        sync: false   # optional
+      - key: SERVER_PORT
+        value: "8080"
